@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/04 19:54:22 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/05 21:01:47 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/05 22:00:05 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ void	ft_add_elem(t_list **list, char c, t_data *data)
 	new->printed = 0;
 	new->next = NULL;
 	new->prev = NULL;
+	if (*list != NULL && data->charly->prev == NULL && data->charly->next && data->cursor == 0)
+	{
+		new = (t_list *)malloc(sizeof(t_list));
+		new->c = c;
+		new->next = *list;
+		new->prev = NULL;
+		*list = new;
+		data->charly = new;
+		return ;
+	}
 	if (*list == NULL)
 	{
 		*list = new;

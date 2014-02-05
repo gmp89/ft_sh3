@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/24 15:50:35 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/05 20:55:51 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/05 22:04:26 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,19 @@ t_list	*ft_add_in_front(t_list *list, char c, t_data *data)
 	new->printed = 0;
 	new->next = list;
 	new->prev = NULL;
-	list = new;
-	return (list);
+	return (new);
 }
 
 void	printable_char(t_data *data)
 {
+	/* if (data->list != NULL && data->charly->prev == NULL) */
+	/* 	data->charly = ft_add_in_front(data->charly, *data->buff, data); */
+	/* else */
+	ft_add_elem(&data->list, *data->buff, data);
+	ft_print_list(data->list);
 	data->cursor++;
 	data->real_cursor++;
 	data->tmp = data->real_cursor;
-	if (/* data->charly->prev == NULL &&  */data->cursor == 0 && data->real_cursor != 0)
-		data->charly = ft_add_in_front(data->charly, *data->buff, data);
-	else
-		ft_add_elem(&data->list, *data->buff, data);
-	ft_print_list(data->list);
 	ft_cursor_move_offset(data);
 }
 
