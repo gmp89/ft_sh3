@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/24 15:50:35 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/04 23:55:06 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/05 20:55:51 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,15 @@ void	raw_term_mode(void)
 	return ;
 }
 
+void	ft_cursor_move_offset(t_data *data)
+{
+	while (data->tmp != data->cursor)
+	{
+		tputs(tgetstr("le", NULL), 1, tputs_putchar);
+		data->tmp--;
+	}
+}
+
 void	default_term_mode(void)
 {
 	struct termios	tattr;
@@ -63,20 +72,41 @@ void	default_term_mode(void)
 	return ;
 }
 
+t_list	*ft_add_in_front(t_list *list, char c, t_data *data)
+{
+	t_list	*new;
+
+	data->i = 0;
+	new = (t_list *)malloc(sizeof(t_list));
+	new->c = c;
+	new->printed = 0;
+	new->next = list;
+	new->prev = NULL;
+	list = new;
+	return (list);
+}
+
 void	printable_char(t_data *data)
 {
 	data->cursor++;
-	ft_add_elem(&data->list, *data->buff, data);
-	/* ft_putchar(*data->buff); */
+	data->real_cursor++;
+	data->tmp = data->real_cursor;
+	if (/* data->charly->prev == NULL &&  */data->cursor == 0 && data->real_cursor != 0)
+		data->charly = ft_add_in_front(data->charly, *data->buff, data);
+	else
+		ft_add_elem(&data->list, *data->buff, data);
 	ft_print_list(data->list);
-	/* ft_putchar('\n'); */
+	ft_cursor_move_offset(data);
 }
 
 void	ft_while(t_data *data)
 {
 	data->list = (t_list *)malloc(sizeof(t_list));
 	data->list = NULL;
+	data->hist = (t_li *)malloc(sizeof(t_li));
+	data->hist = NULL;
 	data->cursor = 0;
+	data->real_cursor = 0;
 	while (42)
 	{
 		/* ft_putstr("$> "); */
@@ -86,10 +116,15 @@ void	ft_while(t_data *data)
 			printable_char(data);
 		else if (is_arrow(data->buff, data) == 0)
 			;
+		else if (is_return(data->buff, data) == 0)
+			;
+		else if (is_delete(data->buff, data) == 0)
+			;
 		else
-			printf("KEY : [%d] [%d] [%d]\n",
+			printf("KEY : [%d] [%d] [%d] [%d]\n",
 	(unsigned int)data->buff[0],
 	(unsigned int)data->buff[1],
+	(unsigned int)data->buff[2],
 	(unsigned int)data->buff[2]);
 	}
 }
