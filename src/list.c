@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/04 19:54:22 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/05 22:00:05 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 16:06:34 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	ft_print_list(t_list *list)
 {
 	t_list	*tmp;
 
-	/* if (list == NULL) */
-	/* 	return ; */
 	tmp = list;
 	tputs(tgetstr("dl", NULL), 1, tputs_putchar);
 	tputs(tgetstr("cr", NULL), 1, tputs_putchar);
-	while (tmp != NULL)
+	if (list == NULL)
+		return ;
+ 	while (tmp != NULL)
 	{
 		ft_putchar(tmp->c);
 		tmp->printed = 1;
@@ -70,22 +70,39 @@ t_list *del_elem(t_list *list, t_data *data)
 {
 	t_list	*tmp;
 
-	data->i = 0;
 	if (list)
 	{
-		if (list->prev == NULL)
-			return (list);
 		tmp = list;
-		if (list->prev != NULL)
+		if (list == data->list)
+		{
+			if (list->next != NULL)
+				data->list = list->next;
+			else
+				data->list = NULL;
+			list = data->list;
+		}
+		if (list && list->prev == NULL && list->next == NULL)
+		{
+			free(tmp);
+			list = NULL;
+			data->cursor--;
+			data->real_cursor--;
+			ft_print_list(data->list);
+			data->tmp = data->real_cursor;
+			ft_cursor_move_offset(data);
+			return (list);
+		}
+		if (list && list->prev != NULL)
 			list->prev->next = list->next;
-		if (list->next != NULL)
+		if (list && list->next != NULL)
 			list->next->prev = list->prev;
-		if (list->prev != NULL)
+		if (list && list->prev != NULL)
 			list = list->prev;
-		free(tmp);
 		data->cursor--;
 		data->real_cursor--;
 		ft_print_list(data->list);
+		data->tmp = data->real_cursor;
+		ft_cursor_move_offset(data);
 	}
 	return (list);
 }

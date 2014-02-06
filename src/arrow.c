@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/04 22:28:39 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/05 22:04:04 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 15:06:22 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@ t_list	*arrow_right(t_list *list, t_data *data)
 {
 	if (list)
 	{
-		if (list->next != NULL)
+		if (list->next == NULL && data->cursor != data->real_cursor)
+		{
+			data->cursor++;
+			tputs(tgetstr("nd", NULL), 1, tputs_putchar);
+		}
+		else if (list->next != NULL)
 		{
 			data->cursor++;
 			list = list->next;
