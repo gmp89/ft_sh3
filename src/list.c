@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/04 19:54:22 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/06 17:02:11 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 19:54:32 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ void	ft_add_elem(t_list **list, char c, t_data *data)
 	data->charly = new;
 }
 
-void	ft_print_list(t_list *list)
+void	ft_print_list(t_list *list, t_data *data)
 {
 	t_list	*tmp;
 
 	tmp = list;
 	tputs(tgetstr("dl", NULL), 1, tputs_putchar);
 	tputs(tgetstr("cr", NULL), 1, tputs_putchar);
+	ft_get_pwd(data, data->env);
+	ft_putstr(data->pwd + 43);
+	ft_putstr(" $> ");
 	if (list == NULL)
 		return ;
  	while (tmp != NULL)
@@ -87,7 +90,7 @@ t_list *del_elem(t_list *list, t_data *data)
 			list = NULL;
 			data->cursor--;
 			data->real_cursor--;
-			ft_print_list(data->list);
+			ft_print_list(data->list, data);
 			data->tmp = data->real_cursor;
 			ft_cursor_move_offset(data);
 			return (list);
@@ -100,7 +103,7 @@ t_list *del_elem(t_list *list, t_data *data)
 			list = list->prev;
 		data->cursor--;
 		data->real_cursor--;
-		ft_print_list(data->list);
+		ft_print_list(data->list, data);
 		data->tmp = data->real_cursor;
 		ft_cursor_move_offset(data);
 	}
@@ -141,7 +144,7 @@ t_li	*add_list(t_li *list, t_data *data)
 	return (list);
 }
 
-void	ft_print_history(t_li *list)
+void	ft_print_history(t_li *list, t_data *data)
 {
 	t_li	*tmp;
 
@@ -149,7 +152,7 @@ void	ft_print_history(t_li *list)
 	while (tmp)
 	{
 		tputs(tgetstr("dl", NULL), 1, tputs_putchar);
-		ft_print_list(tmp->ptr);
+		ft_print_list(tmp->ptr, data);
 		tmp = tmp->next;
 	}
 }

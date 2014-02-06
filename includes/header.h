@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/24 15:49:20 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/06 16:42:16 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 19:54:45 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define HEADER_H
 # define MAX_KEY_STRING 5
 
-/* # include <sys/uio.h> */
-/* # include <signal.h> */
+# include <sys/uio.h>
+# include <signal.h>
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
@@ -77,7 +77,7 @@ typedef struct	s_data
 int		ft_get_cmd(t_data *data);
 char	*ft_get_user(char **tabl, t_data *data);
 int		ft_count_c(char *str, char c);
-char	**ft_get_path(char **tabl);
+char	**ft_get_path(char **tabs);
 int		ft_exec(t_data *data);
 int		ft_exec_cmd(t_data *data);
 char	*ft_direct_exec(t_data *data);
@@ -90,6 +90,7 @@ void	ft_print_tab(char **tabl);
 void	ft_setenv(t_data *data, char *str);
 int		ft_checkenv(t_data *data, char *str);
 int		ft_unsetenv(t_data *data, char *str);
+char	*ft_make_string(t_list *list);
 
 /*
 **	termcaps
@@ -116,10 +117,9 @@ void	key_return(t_data *data);
 */
 
 void	ft_add_elem(t_list **list, char c, t_data *data);
-void	ft_print_list(t_list *list);
+void	ft_print_list(t_list *list, t_data *data);
 t_list	*del_elem(t_list *list, t_data *data);
-void	key_return(t_data *data);
 t_li	*add_list(t_li *list, t_data *data);
-void	ft_print_history(t_li *list);
+void	ft_print_history(t_li *list, t_data *data);
 
 #endif

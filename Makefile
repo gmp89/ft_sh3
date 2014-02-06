@@ -6,12 +6,12 @@
 #    By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/24 15:49:32 by gpetrov           #+#    #+#              #
-#    Updated: 2014/02/04 22:30:31 by gpetrov          ###   ########.fr        #
+#    Updated: 2014/02/06 19:20:41 by gpetrov          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME	= ft_minishell3
-FILES	= main.c list.c tools2.c arrow.c # path.c tools.c tools2.c env.c
+FILES	= main.c list.c tools2.c arrow.c path.c tools.c env.c
 SRCS	= $(addprefix src/, $(FILES))
 OBJS	= $(SRCS:src/%.c=.obj/%.o)
 INC		= -I includes -I libft/includes
