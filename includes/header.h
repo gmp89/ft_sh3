@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/24 15:49:20 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/05 22:02:36 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 16:42:16 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		is_arrow(char *buf, t_data *data);
 t_list	*arrow_right(t_list *list, t_data *data);
 t_list	*arrow_left(t_list *list, t_data *data);
 t_li	*is_up(t_li *list, t_data *data);
+t_li	*is_down(t_li *charly, t_data *data);
 
 void	ft_while(t_data *data);
 void	ft_cursor_move_offset(t_data *data);

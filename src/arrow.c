@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/04 22:28:39 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/06 15:06:22 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 17:59:26 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,29 @@ int		is_arrow(char *buf, t_data *data)
 	if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
 		data->charly2 = is_up(data->charly2, data);
 	if (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
-		ft_putstr("[DOWN]\n");
+		data->charly2 = is_down(data->charly2, data);
 	if (buf[0] == 27 && buf[1] == 91 && buf[2] == 67)
 		data->charly = arrow_right(data->charly, data);
 	if (buf[0] == 27 && buf[1] == 91 && buf[2] == 68)
 		data->charly = arrow_left(data->charly, data);
 	return (0);
+}
+
+t_li	*is_down(t_li *charly, t_data *data)
+{
+	data->i = 0;
+	if (charly)
+	{
+		/* if (charly->next != NULL) */
+		/* { */
+			if (charly->next)
+			{
+				charly = charly->next;
+				ft_print_list(charly->ptr);
+			}
+		/* } */
+	}
+	return (charly);
 }
 
 t_li	*is_up(t_li *list, t_data *data)
@@ -72,8 +89,14 @@ t_li	*is_up(t_li *list, t_data *data)
 	{
 		/* if (list->prev != NULL) */
 		/* { */
-		ft_print_list(list->ptr);
-		list = list->prev;
+		if (list->prev != NULL)
+		{
+			
+			ft_print_list(list->ptr);
+			list = list->prev;
+		}
+		else
+			ft_print_list(list->ptr);
 		/* } */
 	}
 	return (list);
@@ -91,8 +114,8 @@ int		is_delete(char *buf, t_data *data)
 
 void	key_return(t_data *data)
 {
-	data->i = 0;
 	data->hist = add_list(data->hist, data);
+	data->charly2 = data->charly2->next;
 	ft_putstr("\n");
 }
 

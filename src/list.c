@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/04 19:54:22 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/06 16:06:34 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 17:02:11 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,11 @@ t_li	*add_list(t_li *list, t_data *data)
 	new->next = NULL;
 	new->prev = NULL;
 	if (list == NULL)
+	{
+		data->charly2 = new;
+		data->list = NULL;
 		return (new);
+	}
 	while (tmp->next != NULL)
 	{
 		tmp3 = tmp;
