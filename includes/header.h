@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/24 15:49:20 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/06 19:54:45 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 22:48:32 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct		s_list
 
 typedef struct		s_li
 {
+	int				first;
 	struct s_list	*ptr;
 	struct s_li		*next;
 	struct s_li		*prev;
@@ -49,6 +50,7 @@ typedef struct		s_li
 
 typedef struct	s_data
 {
+	int			in_history;
 	int			i;
 	int			cursor;
 	int			tmp;

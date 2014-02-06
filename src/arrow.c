@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/04 22:28:39 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/06 19:58:21 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 23:00:57 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_li	*is_down(t_li *charly, t_data *data)
 		/* { */
 			if (charly->next)
 			{
+				data->in_history = 1;
 				charly = charly->next;
 				ft_print_list(charly->ptr, data);
 			}
@@ -83,12 +84,12 @@ t_li	*is_down(t_li *charly, t_data *data)
 
 t_li	*is_up(t_li *list, t_data *data)
 {
-	data->i = 0;
 	if (list)
 	{
+		data->in_history = 1;
 		/* if (list->prev != NULL) */
 		/* { */
-		if (list->prev != NULL)
+		if (list->first == 0)
 		{
 			ft_print_list(list->ptr, data);
 			list = list->prev;
@@ -118,6 +119,8 @@ char	*ft_make_string(t_list *list)
 	int		i;
 	char	*str;
 
+	if (list == NULL)
+		return (NULL);
 	i = 0;
 	tmp = list;
 	while (tmp->next)
@@ -140,20 +143,25 @@ char	*ft_make_string(t_list *list)
 
 void	key_return(t_data *data)
 {
-	data->prompt = ft_make_string(data->list);
-	/* ft_putstr("\n----TEST-----\n"); */
-	/* ft_putstr(data->prompt); */
-	data->hist = add_list(data->hist, data);
-	data->charly2 = data->charly2->next;
+	if (data->in_history == 1)
+		data->prompt = ft_make_string(data->charly2->ptr);
+	else
+		data->prompt = ft_make_string(data->list);
 	ft_putstr("\n");
-	if (ft_get_cmd(data) == 0)
+	if (data->prompt != NULL)
 	{
-		if (ft_exec_cmd(data) == 0)
-			free(data->name_cmd);
+		data->hist = add_list(data->hist, data);
+		data->charly2 = data->charly2->next;
+		if (ft_get_cmd(data) == 0)
+		{
+			if (ft_exec_cmd(data) == 0)
+				free(data->name_cmd);
+		}
 	}
 	ft_get_pwd(data, data->env);
 	ft_putstr(data->pwd + 43);
 	ft_putstr(" $> ");
+	data->in_history = 0;
 }
 
 int		is_return(char *buf, t_data *data)

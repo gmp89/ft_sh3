@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/24 15:50:35 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/06 19:53:18 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 22:56:19 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ t_list	*ft_add_in_front(t_list *list, char c, t_data *data)
 
 void	printable_char(t_data *data)
 {
-	ft_add_elem(&data->list, *data->buff, data);
+	if (data->in_history == 1)
+		ft_add_elem(&data->charly2->ptr, *data->buff, data);
+	else
+		ft_add_elem(&data->list, *data->buff, data);
+	data->in_history = 0;
 	ft_print_list(data->list, data);
 	data->cursor++;
 	data->real_cursor++;
@@ -97,6 +101,7 @@ void	printable_char(t_data *data)
 
 void	ft_while(t_data *data)
 {
+	data->in_history = 0;
 	data->list = (t_list *)malloc(sizeof(t_list));
 	data->list = NULL;
 	data->hist = (t_li *)malloc(sizeof(t_li));

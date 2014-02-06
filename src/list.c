@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/04 19:54:22 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/02/06 19:54:32 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/02/06 22:44:29 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	ft_print_list(t_list *list, t_data *data)
  	while (tmp != NULL)
 	{
 		ft_putchar(tmp->c);
-		tmp->printed = 1;
 		tmp = tmp->next;
 	}
 }
@@ -121,11 +120,13 @@ t_li	*add_list(t_li *list, t_data *data)
 	tmp2 = data->list;
 	new = (t_li *)malloc(sizeof(t_li));
 	new->ptr = tmp2;
+	new->first = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	if (list == NULL)
 	{
 		data->charly2 = new;
+		new->first = 1;
 		data->list = NULL;
 		return (new);
 	}
